@@ -8,9 +8,9 @@
   ],
   "license": "ISC",
   "author": "sudhanshu chaudhari",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   }
 }
