@@ -1,19 +1,20 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+// require('dotenv').config({path: './env'})
+import dotenv from "dotenv"
+import connectDB from "./db/index.js";
 
 
 
-const uri = process.env.DATABASE_URI;
+dotenv.config({
+    path: './.env'
+})
 
-console.log(uri);
 
-mongoose
-  .connect(uri)
-  .then(() => {
-    console.log("Connected");
+
+connectDB().then(()=>{
+  app.listen(process.env.PORT || 8000 ,()=>{
+    console.log(`server is listening at port : ${process.env.PORT}`)
   })
-  .catch((err) => {
-    console.log(err);
-  });
-
-  dotenv.config();
+})
+.catch((err)=>{
+   console.log("mongo db connection faild !! ", err );
+})
