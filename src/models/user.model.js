@@ -10,7 +10,7 @@ const userSchema = new Schema(
             required:true,
             unique:true,
             trim:true,
-            lowecase:true,
+            lowercase:true,
             index:true
         },
          email:{
@@ -18,7 +18,7 @@ const userSchema = new Schema(
             required:true,
             unique:true,
             trim:true,
-            lowecase:true,
+            lowercase:true,
         },
          fullname:{
             type:String,
@@ -35,7 +35,7 @@ const userSchema = new Schema(
         },
         watchHistory:[
             {
-                type:Schema.Type.ObjectId,
+                type:Schema.Types.ObjectId,
                 ref:"Video"
             }
         ],
@@ -53,12 +53,11 @@ const userSchema = new Schema(
     }
 )
 
-userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+    if (!this.isModified("password")) return;
 
-    this.password =  await bcrypt.hash(this.password,10)
-    next()
-})
+    this.password = await bcrypt.hash(this.password, 10);
+});
 
 //coustom methodes
 
@@ -92,5 +91,5 @@ userSchema.methods.generateRefreshToken = function(){
         }
     )
 }
-export const User = mongoose.model.apply("User",userSchema)
+export const User = mongoose.model("User",userSchema)
 
