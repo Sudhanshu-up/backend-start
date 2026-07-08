@@ -5,6 +5,7 @@ import uploadOnCloudinary from "../utils/cloudinary.js"
 import ApiResponse from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken"
 console.log("abced")
+import mongoose from "mongoose";
 
 
 const generateAccessAndRefereshTokens = async(userId) => {
@@ -416,16 +417,14 @@ const getUserChannelProfile = asynHandler(async (req, res) => {
   }
 
   return res.status(200).json(new ApiResponse(200, channel[0], "User channel fetched successfully"));
-  console.log("abced12");
-
-  console.log("abc");
+  
 });
 
 const getwatchHistory = asynHandler(async(req, res)=>{
   const user = await User.aggregate([
     {
       $match: {
-        _id: new mongoose.Type.objectId(req.user._id),
+        _id: new mongoose.Types.ObjectId(req.user._id),
       },
     },
     {
