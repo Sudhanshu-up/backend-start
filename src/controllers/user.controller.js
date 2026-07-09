@@ -50,35 +50,35 @@ console.log(req.body);
  };
 
 //3
-
+console.log("Step 00");
 const exsitedUser = await User.findOne({
     $or: [{ username },{ email }]
 })
-
+console.log("Step 0");
 if(exsitedUser){
     throw new ApiError(409, "User with eamil or username is already exsits")
 }
 
 //4 
-
+console.log("Step 1");
 const avatarLocalPath = req.files?.avatar?.[0]?.path;
 const coverImageLocalPath = req.files?.coverimage?.[0]?.path;
-
+console.log("Step 2");
 
 if(!avatarLocalPath) {
    throw new ApiError(400, "Avatar file is required") 
 }
-
+console.log("Step 3");
 //5
 
  const avatar = await uploadOnCloudinary(avatarLocalPath)
-
+console.log("Step 4");
  const coverimage = await uploadOnCloudinary(coverImageLocalPath)
-
+console.log("Step 5");
  if(!avatar){
    throw new ApiError(400, "Avatarrrrr file is required") 
 }
-
+console.log("Step 6");
 //6
 const user = await User.create({
     fullname,
@@ -88,18 +88,18 @@ const user = await User.create({
     password,
     username: username.toLowerCase()
 })
-
+console.log("Step 7");
 //7
 const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
 )
-
+console.log("Step 8");
 //8
 
 if (!createdUser) {
     throw new ApiError(500, "Something went wrong while registering the user")
 }
-//9 
+ console.log("Step 9");
 return res.status(201).json(
     new ApiResponse(200, createdUser, "User registered Successfully")
 )
